@@ -1,8 +1,7 @@
 from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton,
                            InlineKeyboardMarkup, InlineKeyboardButton)
-from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
+from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
-from app.database.requests import get_words
 
 main = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text='Профиль')],

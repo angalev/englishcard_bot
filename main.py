@@ -5,7 +5,6 @@ import logging
 from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
 
-from app.database.requests import fill_vocabulary
 from app.handlers import router
 from app.database.models import async_main
 

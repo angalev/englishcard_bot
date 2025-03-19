@@ -5,20 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46c4d9d6-db54-47bd-9937-d14fd0203095" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/englishcard_bot.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/database/JSONdict.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/database/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/database/requests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/handlers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/keyboards.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/text_messages.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/database/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/database/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/database/requests.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/database/requests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/handlers.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/keyboards.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/keyboards.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
