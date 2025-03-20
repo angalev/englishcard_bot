@@ -9,7 +9,7 @@ from sqlalchemy import select, func
 
 from dotenv import load_dotenv
 load_dotenv()
-
+# Функция добавления тг id пользователя в БД
 async def set_user(user_id):
     async with async_session() as session:
         user = await session.scalar(select(User).where(User.user_id == user_id))
@@ -17,7 +17,7 @@ async def set_user(user_id):
         if not user:
             session.add(User(user_id=user_id))
             await session.commit()
-
+#Добавление в избранное. Создаёт связь id пользователя и id избранного слова в таблице UserWord
 async def add_to_favourites(user_id, word_id):
     async with async_session() as session:
         user_word = await session.scalar(select(UserWord).where(UserWord.word_id == word_id).where(
@@ -26,7 +26,7 @@ async def add_to_favourites(user_id, word_id):
         if not user_word:
             session.add(UserWord(user_id=user_id, word_id=word_id))
             await session.commit()
-
+#Удаление связи из таблицы UserWord
 async def dell_from_favourites(user_id, word_id):
     async with async_session() as session:
         try:
@@ -50,7 +50,8 @@ async def dell_from_favourites(user_id, word_id):
             await session.rollback()
             return False
 
-
+#Считывание файла json с англо-русским словарём для наполнения БД.
+# Переписать при применении другого словаря
 async def fill_vocabulary() -> None:
     async with async_session() as session:
         word = await session.scalar(select(Word))
@@ -62,7 +63,8 @@ async def fill_vocabulary() -> None:
                     session.add(Word(eng_word=word_pair['word'][:25], rus_word=word_pair['translates'][0][:25]))
             await session.commit()
 
-
+# получение случайного слова из избранных пользователем. Выбирается случайный id из списка избранных слов
+# список дополняется 3мя случайными словами из словаря.
 async def get_favourite_words(user_id) -> list:
     async with async_session() as session:
         random_words = await session.execute(
@@ -90,7 +92,8 @@ async def get_favourite_words(user_id) -> list:
             words[1].append(word_from_favourite.rus_word)
             words[2].append(word_from_favourite.id)
         return words
-
+# Функционал игры при выборе всего словаря для генерации вопросов.
+# Просто выбирает 4 случайных слова из всей базы слов
 async def get_words() -> list:
     async with async_session() as session:
         total_words_number = await session.scalar(select(func.max(Word.id)))

@@ -35,21 +35,22 @@ async def cmd_start(message: Message):
 @router.message(F.text=='Назад')
 async def restart(message: Message):
     await message.answer(start_message, reply_markup=start_menu)
-
+#Обработка команды 'Настройки'
 @router.message(F.text=='Настройки')
 async def restart(message: Message):
     await message.answer('Выберите режим игры:', reply_markup=personal_settings)
-
+#Генерация вопросов с использованием случайных слов из загруженного англо-русского словаря
 @router.message(F.text=='Слова из словаря')
 async def start_game(message: Message, state: FSMContext):
     await state.set_state(Play.play)
     await start_new_round(message=message, state=state)
-
+#Генерация вопросов с использованием случайных слов из избранных в базе данных.
+# Выбирается одно слово, остальные 3 загружаются из словаря
 @router.message(F.text=='Избранные слова')
 async def start_game(message: Message, state: FSMContext):
     await state.set_state(Play.favourite_words)
     await start_favourites(message=message, state=state)
-
+#Функция игры при выборе в настройках сценария с изучением избранных пользователем слов
 async def start_favourites(message: Message, state: FSMContext):
     # Генерируем новые слова и вопрос
     random_words = await rq.get_favourite_words(message.from_user.id)
@@ -65,7 +66,7 @@ async def start_favourites(message: Message, state: FSMContext):
         reply_markup=await play_buttons(random_words)
     )
 
-# Выносим логику старта игры в отдельную функцию
+# Функция игры с изучением случайных слов из общего англо-русского словаря
 async def start_new_round(message: Message, state: FSMContext):
     # Генерируем новые слова и вопрос
     random_words = await rq.get_words()
@@ -80,15 +81,15 @@ async def start_new_round(message: Message, state: FSMContext):
         f'Выбери правильный перевод слова:\n 🇷🇺{random_words[1][3]}',
         reply_markup=await play_buttons(random_words)
     )
-
+#Старт игры при нажатии кнопки в инлайн запросе под приветственным сообщением
 @router.callback_query(F.data=='start_game')
 async def start_game(callback: CallbackQuery, state: FSMContext):
     await state.set_state(Play.play)
     await start_new_round(message=callback.message, state=state)
-
+#Выводит на экран бота кнопки главного меню с настройками
 async def main_menu(message: Message):
     await message.answer('Вы находитесь в главном меню', reply_markup=main)
-
+# Основная логика игры с применением слов из общего словаря
 @router.message(Play.play)
 async def check_correct_answer(message: Message, state: FSMContext):
     data = await state.get_data()
@@ -112,7 +113,7 @@ async def check_correct_answer(message: Message, state: FSMContext):
         await main_menu(message)
     else:
         await message.answer('❌Неправильно, попробуй ещё раз❌')
-
+#Основная логика игры с применением слов, избранных пользователем
 @router.message(Play.favourite_words)
 async def check_correct_answer(message: Message, state: FSMContext):
     data = await state.get_data()

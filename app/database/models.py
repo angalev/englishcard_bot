@@ -12,7 +12,8 @@ async_session = async_sessionmaker(engine)
 
 class Base(AsyncAttrs, DeclarativeBase):
     pass
-
+#Вспомогательная таблица для хранения избранных пользователями слов
+# с привязкой к тг id
 class UserWord(Base):
     __tablename__ = 'users_words'
 
@@ -20,7 +21,7 @@ class UserWord(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey('users.user_id'), primary_key=True)
     user: Mapped['User'] = relationship(back_populates='word_associations')
     word: Mapped['Word'] = relationship(back_populates='user_associations')
-
+# Таблица со списком пользователей тг id
 class User(Base):
     __tablename__ = 'users'
 
@@ -32,7 +33,8 @@ class User(Base):
         viewonly=True,
         back_populates='users'
     )
-
+#Таблица со словами. Генерируется при старте бота (если пустая, наполняется данными из
+# англо-русского словаря, приложенного к проекту)
 class Word(Base):
     __tablename__ = 'words'
 
@@ -46,7 +48,7 @@ class Word(Base):
         back_populates='words'
     )
 
-
+# Создание таблиц в БД
 async def async_main():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)

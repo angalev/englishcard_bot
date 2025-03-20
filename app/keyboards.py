@@ -5,7 +5,7 @@ from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton,
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from random import shuffle
 
-
+#Кнопки главного меню
 main = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text='Профиль')],
     [KeyboardButton(text='Настройки')],
@@ -13,20 +13,24 @@ main = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text='Назад')]
 ], is_persistent=True)
 
+#Кнопки главное меню / настройки
 personal_settings = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text='Избранные слова')],
     [KeyboardButton(text='Слова из словаря')],
     [KeyboardButton(text='Назад')]
 ], is_persistent=True)
-
+#Кнопка под приветственным сообщением
 start_menu = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='Начать игру', callback_data='start_game')]
 ])
-
+#Ответ при вводе команды /help
 settings = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='Погугли', url='https://www.google.ru/')]
 ])
-
+#Конструктор игровых кнопок. Здесь реализовано перемешивание,
+# чтобы правильный ответ был всегда в рандомном месте.
+# Т.к список вопросов генерируется всегда в одном порядке,
+# с правильным словом в конце
 async def play_buttons(random_words: list):
     keyboard = ReplyKeyboardBuilder()
     shuffled_buttons = []
