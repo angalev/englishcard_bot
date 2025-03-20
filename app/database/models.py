@@ -18,7 +18,6 @@ class UserWord(Base):
 
     word_id: Mapped[int] = mapped_column(ForeignKey('words.id'), primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey('users.user_id'), primary_key=True)
-    favourites: Mapped[bool] = mapped_column(Boolean, nullable=True)
     user: Mapped['User'] = relationship(back_populates='word_associations')
     word: Mapped['Word'] = relationship(back_populates='user_associations')
 
